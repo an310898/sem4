@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/AdminLayout.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="page-content-wrapper" layout:fragment="content" >
+    <div class="container-fluid">
+        <div th:switch="${category}" >
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Created Date</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cate : ${category}">
+                    <th scope="row" th:text="${cate.Id}"></th>
+                    <td th:text="${cate.Name}"></td>
+                    <td th:text="${#dates.format(cate.CreatedDate,'dd-MM-yyyy')}"></td>
+                    <td><a th:href="@{/edit/{id}(id=${cate.id})}">Edit</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${cate.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a th:href="@{/admin/category/add}">Add a new book category</a></p>
+    </div>
+</div>
+
+
+</body>
+</html>

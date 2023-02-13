@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li> <a th:href="@{/admin/user/getall}">User Manager</a> </li>
+            <li> <a th:href="@{/admin/category/getall}">Category Manager</a> </li>
+            <li> <a href="#">Book Manager</a> </li>
+            <li> <a href="#">Order Detail</a> </li>
+            <li> <a href="#">About</a> </li>
+            <li> <a href="#">Services</a> </li>
+            <li> <a href="#">Contact</a> </li>
+        </ul>
+    </div> <!-- /#sidebar-wrapper -->
+
+
+</body>
+</html>

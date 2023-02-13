@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/AdminLayout.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Add new category</title>
+</head>
+<body>
+<div id="page-content-wrapper" layout:fragment="content" >
+    <div class="container-fluid">
+        <form action="#" th:action="@{/admin/category/save}" th:object="${category}" method="post">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input class="form-control"  type="text" th:field="*{Name}" id="Name" placeholder="Name">
+                <span th:if="${#fields.hasErrors('Name')}" th:errors="*{Name}"></span>
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Add Category">
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/AdminLayout.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="page-content-wrapper" layout:fragment="content">
+    <div class="container-fluid">
+        <form action="#" th:action="@{/admin/user/save}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="fullName">Full Name: </label>
+                <input class="form-control" type="text" th:field="*{fullName}" id="fullName" placeholder="Full Name">
+                <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span></div>
+            <div class="form-group">
+                <label for="userName">User Name</label>
+                <input class="form-control" type="text" th:field="*{userName}" id="userName" placeholder="Name">
+                <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="text" th:field="*{password}" id="password" placeholder="Name">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+            <div>
+                <input type="submit" value="Add User" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
