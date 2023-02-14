@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AdminController {
-    @GetMapping ("/Admin")
+    @GetMapping ("/admin")
     public String adminManager(){
-        return "Admin/AdminLayout";
+        return "redirect:/admin/user/getall";
     }
 }

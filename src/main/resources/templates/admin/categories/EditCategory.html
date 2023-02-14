@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/AdminLayout.html}"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit category</title>
 </head>
 <body>
+<div id="page-content-wrapper" layout:fragment="content">
+    <div class="container-fluid" th:object="${category}">
+        <form action="#"
+              th:action="@{/admin/category/update/{cateId}(cateId=${Id})}"
+              method="post"
+              >
+            <div class="form-group">
+                <label for="Name">Category Name</label>
+                <input class="form-control" type="text" id="Name" placeholder="Name" th:field="*{Name}">
+                <span th:if="${#fields.hasErrors('Name')}" th:errors="*{Name}"></span>
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>
 
+</body>
 </body>
 </html>

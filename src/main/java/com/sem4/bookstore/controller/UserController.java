@@ -6,6 +6,8 @@ import com.sem4.bookstore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +29,19 @@ public class UserController {
     }
     @GetMapping("/add")
     public String addCategoryForm(Model model){
+
+
         model.addAttribute("user",new User());
         return "admin/users/addUser";
     }
 
     @PostMapping("/save")
-    public String addCategory(User user){
+    public String addCategory(User user, BindingResult result){
+        if(userRepository.exitsByUserName(user.getUserName())){
+            result.addError(new ObjectError("invalidUser","User name exitst, please choose another username!"));
+            return "admin/users/addUser";
+        }
+
         user.setCreatedDate(Date.from(Instant.now()));
         userRepository.save(user);
         return "redirect:/admin/user/getall";

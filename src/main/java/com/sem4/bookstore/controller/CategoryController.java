@@ -5,6 +5,7 @@ import com.sem4.bookstore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -34,5 +35,19 @@ public class CategoryController {
         cate.setCreatedDate(Date.from(Instant.now()));
             categoryRepository.save(cate);
             return "redirect:/admin/category/getall";
+    }
+
+    @GetMapping("edit/{cateId}")
+    public String editCategoryForm(@PathVariable("cateId")int cateId,Model model){
+            Category category = categoryRepository.findById(cateId).orElseThrow(()->new IllegalArgumentException("Invalid user Id: "+ cateId));
+          model.addAttribute("category",category);
+          return "admin/categories/EditCategory";
+    }
+
+    @PostMapping("update/{cateId}")
+    public String updateCategory(@PathVariable("cateId")int cateId,Category category, Model model, BindingResult bindingResult){
+        category.setId(cateId);
+        categoryRepository.save(category);
+        return "redirect:/admin/category/getall";
     }
 }
