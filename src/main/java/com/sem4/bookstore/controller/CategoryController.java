@@ -40,14 +40,22 @@ public class CategoryController {
     @GetMapping("edit/{cateId}")
     public String editCategoryForm(@PathVariable("cateId")int cateId,Model model){
             Category category = categoryRepository.findById(cateId).orElseThrow(()->new IllegalArgumentException("Invalid user Id: "+ cateId));
-          model.addAttribute("category",category);
+            model.addAttribute("cateId",cateId);
+            model.addAttribute("category",category);
           return "admin/categories/EditCategory";
     }
 
     @PostMapping("update/{cateId}")
     public String updateCategory(@PathVariable("cateId")int cateId,Category category, Model model, BindingResult bindingResult){
         category.setId(cateId);
+        category.setCreatedDate(Date.from(Instant.now()));
         categoryRepository.save(category);
+        return "redirect:/admin/category/getall";
+    }
+
+    @GetMapping("delete/{cateId}")
+    public String updateCategory(@PathVariable("cateId")int cateId){
+        categoryRepository.deleteById(cateId);
         return "redirect:/admin/category/getall";
     }
 }

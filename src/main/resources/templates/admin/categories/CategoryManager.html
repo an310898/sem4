@@ -12,6 +12,7 @@
     <div class="container-fluid">
         <div th:switch="${category}" >
             <h2 th:case="null">No category yet!</h2>
+            <h2>Category</h2>
             <table class="table">
                 <thead>
                 <tr>
@@ -28,12 +29,12 @@
                     <td th:text="${cate.Name}"></td>
                     <td th:text="${#dates.format(cate.CreatedDate,'dd-MM-yyyy')}"></td>
                     <td><a th:href="@{/admin/category/edit/{id}(id=${cate.id})}">Edit</a></td>
-                    <td><a th:href="@{/delete/{id}(id=${cate.id})}">Delete</a></td>
+                    <td><a th:href="@{/admin/category/delete/{id}(id=${cate.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <p><a th:href="@{/admin/category/add}">Add a new book category</a></p>
+        <p  class="float-right"><a class=" btn btn-primary" th:href="@{/admin/category/add}">Add a new book category</a></p>
     </div>
 </div>
 

@@ -11,7 +11,7 @@
 <div id="page-content-wrapper" layout:fragment="content">
     <div class="container-fluid" th:object="${category}">
         <form action="#"
-              th:action="@{/admin/category/update/{cateId}(cateId=${Id})}"
+              th:action="@{/admin/category/update/{cateId}(cateId=${cateId})}"
               method="post"
               >
             <div class="form-group">
