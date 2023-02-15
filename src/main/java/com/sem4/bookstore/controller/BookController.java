@@ -2,6 +2,7 @@ package com.sem4.bookstore.controller;
 
 import com.sem4.bookstore.model.Book;
 import com.sem4.bookstore.repository.BookRepository;
+import com.sem4.bookstore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,8 @@ import java.util.List;
 public class BookController {
     @Autowired
     BookRepository bookRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/getall")
     public String getAll(Model model){
@@ -30,12 +33,14 @@ public class BookController {
 
     @GetMapping("/add")
     public String addbookForm(Model model){
+        model.addAttribute("category",categoryRepository.findAll());
         model.addAttribute("book",new Book());
         return "admin/books/AddBook";
     }
 
     @PostMapping("/save")
     public String addbook(Book book){
+
         book.setCreatedDate(Date.from(Instant.now()));
         bookRepository.save(book);
         return "redirect:/admin/book/getall";

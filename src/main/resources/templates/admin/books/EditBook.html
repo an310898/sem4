@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/AdminLayout.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+</head>
+<body>
+<div id="page-content-wrapper" layout:fragment="content">
+    <div class="container-fluid" th:object="${book}">
+        <form action="#"
+              th:action="@{/admin/book/update/{bookId}(bookId=${bookId})}"
+              method="post"
+              >
+            <div class="form-group">
+                <label for="Name">Book Name</label>
+                <input class="form-control" type="text" id="Name" placeholder="Name" th:field="*{name}">
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <input class="form-control" type="text" id="Description" placeholder="Description" th:field="*{description}">
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            </div>
+            <div class="form-group">
+                <label for="Price">Price</label>
+                <input class="form-control" type="text" id="Price" placeholder="Description" th:field="*{price}">
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/AdminLayout.html}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="page-content-wrapper" layout:fragment="content" >
+    <div class="container-fluid">
+        <div th:switch="${books}" >
+            <h2 th:case="null">No book yet!</h2>
+            <h2>Book</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Book Description</th>
+                    <th scope="col">Book Price</th>
+                    <th scope="col">Created Date</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <th scope="row" th:text="${book.Id}"></th>
+                    <td th:text="${book.Name}"></td>
+                    <td th:text="${book.Description}"></td>
+                    <td th:text="${book.Price}"></td>
+                    <td th:text="${#dates.format(book.CreatedDate,'dd-MM-yyyy')}"></td>
+                    <td><a th:href="@{/admin/book/edit/{id}(id=${book.id})}">Edit</a></td>
+                    <td><a th:href="@{/admin/book/delete/{id}(id=${book.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p  class="float-right"><a class=" btn btn-primary" th:href="@{/admin/book/add}">Add a new book</a></p>
+    </div>
+</div>
+
+
+</body>
+</html>
