@@ -54,7 +54,7 @@ public class CategoryController {
     }
 
     @GetMapping("delete/{cateId}")
-    public String updateCategory(@PathVariable("cateId")int cateId){
+    public String deleteCategory(@PathVariable("cateId")int cateId){
         categoryRepository.deleteById(cateId);
         return "redirect:/admin/category/getall";
     }

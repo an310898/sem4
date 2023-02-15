@@ -9,13 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 @Controller
 @RequestMapping("/admin/user")
 public class UserController {
@@ -29,14 +28,12 @@ public class UserController {
     }
     @GetMapping("/add")
     public String addCategoryForm(Model model){
-
-
         model.addAttribute("user",new User());
         return "admin/users/addUser";
     }
 
     @PostMapping("/save")
-    public String addCategory(User user, BindingResult result){
+    public String addUser(User user, BindingResult result){
         if(userRepository.exitsByUserName(user.getUserName())){
             result.addError(new ObjectError("invalidUser","User name exitst, please choose another username!"));
             return "admin/users/addUser";
@@ -44,6 +41,28 @@ public class UserController {
 
         user.setCreatedDate(Date.from(Instant.now()));
         userRepository.save(user);
+        return "redirect:/admin/user/getall";
+    }
+
+    @GetMapping("edit/{userId}")
+    public String editUserForm(@PathVariable("userId")int userId, Model model){
+        User user = userRepository.findById(userId).orElseThrow(()->new IllegalArgumentException("Invalid user Id: "+ userId));
+        model.addAttribute("userId",userId);
+        model.addAttribute("user",user);
+        return "admin/users/EditUser";
+    }
+
+    @PostMapping("update/{userId}")
+    public String updateUser(@PathVariable("userId")int userId,User user, Model model, BindingResult bindingResult){
+        user.setId(userId);
+        user.setCreatedDate(Date.from(Instant.now()));
+        userRepository.save(user);
+        return "redirect:/admin/user/getall";
+    }
+
+    @GetMapping("delete/{userId}")
+    public String deleteUser(@PathVariable("userId")int userId){
+        userRepository.deleteById(userId);
         return "redirect:/admin/user/getall";
     }
 

@@ -29,8 +29,8 @@
                         <th scope="row" th:text="${user.Id}"></th>
                         <td th:text="${user.FullName}"></td>
                         <td th:text="${user.UserName}"></td>
-                        <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
-                        <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+                        <td><a th:href="@{/admin/user/edit/{id}(id=${user.id})}">Edit</a></td>
+                        <td><a th:href="@{/admin/user/delete/{id}(id=${user.id})}">Delete</a></td>
                     </tr>
                     </tbody>
                 </table>
