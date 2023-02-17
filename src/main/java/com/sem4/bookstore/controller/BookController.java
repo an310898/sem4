@@ -1,21 +1,21 @@
 package com.sem4.bookstore.controller;
 
 import com.sem4.bookstore.model.Book;
+import com.sem4.bookstore.model.BookCateMap;
 import com.sem4.bookstore.repository.BookRepository;
 import com.sem4.bookstore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @RequestMapping("/admin/book")
 @Controller
@@ -24,6 +24,8 @@ public class BookController {
     BookRepository bookRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+
+
 
     @GetMapping("/getall")
     public String getAll(Model model){
@@ -34,15 +36,19 @@ public class BookController {
     @GetMapping("/add")
     public String addbookForm(Model model){
         model.addAttribute("category",categoryRepository.findAll());
-        model.addAttribute("book",new Book());
+        model.addAttribute("bookCateMap",new BookCateMap());
         return "admin/books/AddBook";
     }
 
-    @PostMapping("/save")
-    public String addbook(Book book){
-
+    @PostMapping("save")
+    public String addbook( BookCateMap bookCateMap){
+        Book book = new Book();
+        book.setName(bookCateMap.getBookName());
+        book.setDescription(bookCateMap.getBookDescription());
+        book.setPrice(bookCateMap.getBookPrice());
         book.setCreatedDate(Date.from(Instant.now()));
         bookRepository.save(book);
+        bookRepository.BookCategoryMapping(book.getId(),bookCateMap.getCateId());
         return "redirect:/admin/book/getall";
     }
 
