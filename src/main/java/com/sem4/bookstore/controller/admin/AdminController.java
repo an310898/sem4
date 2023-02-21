@@ -1,4 +1,4 @@
-package com.sem4.bookstore.controller;
+package com.sem4.bookstore.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

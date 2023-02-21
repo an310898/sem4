@@ -1,4 +1,4 @@
-package com.sem4.bookstore.controller;
+package com.sem4.bookstore.controller.admin;
 
 import com.sem4.bookstore.model.Category;
 import com.sem4.bookstore.repository.CategoryRepository;

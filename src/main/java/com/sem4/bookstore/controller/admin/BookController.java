@@ -1,4 +1,4 @@
-package com.sem4.bookstore.controller;
+package com.sem4.bookstore.controller.admin;
 
 import com.sem4.bookstore.model.Book;
 import com.sem4.bookstore.model.BookCateMap;
