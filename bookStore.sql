@@ -1,67 +1,90 @@
-use master
-go
-drop database BOOKSTORE
-go
-create database BOOKSTORE
-go
-use BOOKSTORE
+USE master;
+GO
+DROP DATABASE BOOKSTORE;
+GO
+CREATE DATABASE BOOKSTORE;
+GO
+USE BOOKSTORE;
 GO
 
 
-create table Category
+CREATE TABLE Category
 (
-    Id          int identity (1,1) primary key,
-    Name        nvarchar(100)          not null,
-    CreatedDate date default getdate() not null
-)
-create table Book
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    CreatedDate DATE
+        DEFAULT GETDATE() NOT NULL
+);
+CREATE TABLE Book
 (
-    Id          int identity (1,1) primary key,
-    Name        nvarchar(250)          not null,
-    Description nvarchar(250),
-    Price       decimal(10, 5),
-    IsHidden    bit  default 1,
-    CreatedDate date default getdate() not null
-)
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    Name NVARCHAR(250) NOT NULL,
+    Description NVARCHAR(250),
+    Author NVARCHAR(250) NOT NULL,
+    Price DECIMAL(10, 5) NOT NULL,
+    IsHidden BIT
+        DEFAULT 1,
+    CreatedDate DATE
+        DEFAULT GETDATE() NOT NULL
+);
 
-create table BookCategoryMapping
+CREATE TABLE BookCategoryMapping
 (
-    Id         int identity (1,1) primary key,
-    BookId     int foreign key references Book (Id) not     null,
-    CategoryId int foreign key references Category (Id) not null
-)
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    BookId INT
+        FOREIGN KEY REFERENCES Book (Id) NOT NULL,
+    CategoryId INT
+        FOREIGN KEY REFERENCES Category (Id) NOT NULL
+);
 
-create table Users
+CREATE TABLE Users
 (
-    Id          int identity (1,1) primary key,
-    UserName    varchar(250)           not null,
-    [Password]  varchar(250)           not null,
-    FullName    nvarchar(250)          not null,
-    CreatedDate date default getdate() not null
-)
-create table BookOrder
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    UserName VARCHAR(250) NOT NULL,
+    [Password] VARCHAR(250) NOT NULL,
+    FullName NVARCHAR(250) NOT NULL,
+    CreatedDate DATE
+        DEFAULT GETDATE() NOT NULL
+);
+CREATE TABLE BookOrder
 (
-    Id          int identity (1,1) primary key,
-    UserId      int                    not null foreign key references Users (Id),
-    BookId      int                    not null foreign key references Book (Id),
-    CreatedDate date default getdate() not null
-)
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    UserId INT NOT NULL
+        FOREIGN KEY REFERENCES Users (Id),
+    BookId INT NOT NULL
+        FOREIGN KEY REFERENCES Book (Id),
+    CreatedDate DATE
+        DEFAULT GETDATE() NOT NULL
+);
 
-create procedure [dbo].[BookCategoryMap] @BookId int, @CategoryIdArrays varchar(max)
-as
-begin
-    declare @CategoryIdArraySlice varchar(max) = substring(@CategoryIdArrays, 2, len(@CategoryIdArrays) - 2)
-    if len(@CategoryIdArraySlice) = 0
-        return
-
-    insert into BookCategoryMapping (BookId, CategoryId)
-    SELECT @BookId, value
-    FROM string_split(@CategoryIdArraySlice, ',')
-end
 GO
 
-insert into Category(Name)
-values ('Test')
+CREATE PROCEDURE [dbo].[BookCategoryMap]
+    @BookId INT,
+    @CategoryIdArrays VARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @CategoryIdArraySlice VARCHAR(MAX) = SUBSTRING(@CategoryIdArrays, 2, LEN(@CategoryIdArrays) - 2);
+    IF LEN(@CategoryIdArraySlice) = 0
+        RETURN;
 
-select *
-from Category
+    INSERT INTO BookCategoryMapping
+    (
+        BookId,
+        CategoryId
+    )
+    SELECT @BookId,
+           value
+    FROM STRING_SPLIT(@CategoryIdArraySlice, ',');
+END;
+GO
+
+INSERT INTO Category
+(
+    Name
+)
+VALUES
+('Test');
+
+SELECT *
+FROM Category;

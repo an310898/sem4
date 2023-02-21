@@ -18,6 +18,9 @@ public class Book {
     private String name;
 
     @Nationalized
+    @Column(name = "Author", nullable = false, length = 250)
+    private String author;
+    @Nationalized
     @Column(name = "Description", length = 250)
     private String description;
 
