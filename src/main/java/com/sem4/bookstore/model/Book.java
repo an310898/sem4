@@ -20,6 +20,11 @@ public class Book {
     @Nationalized
     @Column(name = "Author", nullable = false, length = 250)
     private String author;
+
+
+    @Nationalized
+    @Column(name = "Image", nullable = false, length = 250)
+    private String image;
     @Nationalized
     @Column(name = "Description", length = 250)
     private String description;
@@ -81,4 +86,19 @@ public class Book {
         this.createdDate = createdDate;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

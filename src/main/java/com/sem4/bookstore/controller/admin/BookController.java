@@ -44,6 +44,8 @@ public class BookController {
     public String addbook( BookCateMap bookCateMap){
         Book book = new Book();
         book.setName(bookCateMap.getBookName());
+        book.setAuthor(bookCateMap.getBookAuthor());
+        book.setImage(bookCateMap.getBookImage());
         book.setDescription(bookCateMap.getBookDescription());
         book.setPrice(bookCateMap.getBookPrice());
         book.setCreatedDate(Date.from(Instant.now()));

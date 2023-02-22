@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>BookStore</title>
+    <title>Trang chủ</title>
 </head>
 <body>
-<h1>index</h1>
+<header>
+    <h1>Trang chủ</h1>
+    <nav>
+        <ul>
+            <li><a href="#">Tất cả</a></li>
+            <li th:each="category : ${categories}">
+                <a th:href="@{/category/{id}(id=${category.id})}" th:text="${category.name}"></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h2>Tất cả sách</h2>
+    <ul>
+        <li th:each="book : ${books}">
+            <h3 th:text="${book.name}"></h3>
+            <p th:text="${book.author}"></p>
+            <p th:text="${book.description}"></p>
+            <p th:text="${book.price}"></p>
+        </li>
+    </ul>
+</main>
+
+<footer>
+    <p>Trang web bán sách trực tuyến</p>
+</footer>
 </body>
 </html>

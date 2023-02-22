@@ -7,6 +7,7 @@ public class BookCateMap {
     String bookName;
     String bookAuthor;
 
+    String bookImage;
     String bookDescription;
     BigDecimal bookPrice;
     String cateId;
@@ -25,6 +26,14 @@ public class BookCateMap {
 
     public void setBookAuthor(String bookAuthor) {
         this.bookAuthor = bookAuthor;
+    }
+
+    public String getBookImage() {
+        return bookImage;
+    }
+
+    public void setBookImage(String bookImage) {
+        this.bookImage = bookImage;
     }
 
     public String getBookDescription() {
