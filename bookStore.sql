@@ -65,10 +65,10 @@ CREATE PROCEDURE [dbo].[BookCategoryMap]
     @CategoryIdArrays VARCHAR(MAX)
 AS
 BEGIN
-    DECLARE @CategoryIdArraySlice VARCHAR(MAX) = SUBSTRING(@CategoryIdArrays, 2, LEN(@CategoryIdArrays) - 2);
-    IF LEN(@CategoryIdArraySlice) = 0
+    IF LEN(@CategoryIdArrays) = 0
         RETURN;
 
+	DELETE FROM dbo.BookCategoryMapping WHERE BookId = @BookId
     INSERT INTO BookCategoryMapping
     (
         BookId,
@@ -76,9 +76,10 @@ BEGIN
     )
     SELECT @BookId,
            value
-    FROM STRING_SPLIT(@CategoryIdArraySlice, ',');
+    FROM STRING_SPLIT(@CategoryIdArrays, ',');
 END;
 GO
+
 
 INSERT INTO Category
 (

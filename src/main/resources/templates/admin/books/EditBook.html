@@ -6,6 +6,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit book</title>
+    <th:block layout:fragment="headScript">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"
+                integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"
+              integrity="sha512-yVvxUQV0QESBt1SyZbNJMAwyKvFTLMyXSyBHDO4BG5t7k/Lw34tyqlSDlKIrIENIzCl+RVUNjmCPG+V/GMesRw=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    </th:block>
 </head>
 <body>
 <div id="page-content-wrapper" layout:fragment="content">
@@ -20,6 +28,16 @@
                 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
             <div class="form-group">
+                <label for="author">Book Author</label>
+                <input class="form-control" type="text" id="author" placeholder="Name" th:field="*{author}">
+                <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+            </div>
+            <div class="form-group">
+                <label for="image">Book Image URL</label>
+                <input class="form-control" type="text" id="image" placeholder="Name" th:field="*{image}">
+                <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
+            </div>
+            <div class="form-group">
                 <label for="Description">Description</label>
                 <input class="form-control" type="text" id="Description" placeholder="Description" th:field="*{description}">
                 <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
@@ -29,6 +47,12 @@
                 <input class="form-control" type="text" id="Price" placeholder="Description" th:field="*{price}">
                 <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
             </div>
+            <div class="form-group">
+                <label for="cateId">Category</label>
+                <select data-placeholder="Choose a category..." multiple class="chosen-select" id="cateId" >
+                    <option th:each="cate : ${category}" th:value="${cate.Id}" th:text="${cate.Name}"></option>
+                </select>
+            </div>
             <div>
                 <input class="btn btn-primary" type="submit" value="Save">
             </div>
@@ -36,6 +60,17 @@
     </div>
 </div>
 
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function () {
+            $(".chosen-select").chosen({
+                width: "100%"
+            })
+
+        });
+    </script>
+</th:block>
+
 </body>
-</body>
+
 </html>

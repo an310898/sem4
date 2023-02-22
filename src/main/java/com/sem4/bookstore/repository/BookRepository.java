@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.query.Procedure;
 public interface BookRepository extends JpaRepository<Book, Integer> {
     @Procedure("BookCategoryMap")
     void BookCategoryMapping(int BookId,String CategoryIdArrays);
+    @Procedure("findBookCategoryMapByBookId")
+    String findBookCategoryMappingByBookId(int BookId);
 }

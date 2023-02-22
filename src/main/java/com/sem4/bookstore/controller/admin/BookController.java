@@ -2,6 +2,7 @@ package com.sem4.bookstore.controller.admin;
 
 import com.sem4.bookstore.model.Book;
 import com.sem4.bookstore.model.BookCateMap;
+import com.sem4.bookstore.repository.BookCategoryMappingRepository;
 import com.sem4.bookstore.repository.BookRepository;
 import com.sem4.bookstore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BookController {
     @Autowired
     BookRepository bookRepository;
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
 
 
@@ -57,7 +58,10 @@ public class BookController {
     @GetMapping("edit/{bookId}")
     public String editbookForm(@PathVariable("bookId")int bookId, Model model){
         Book book = bookRepository.findById(bookId).orElseThrow(()->new IllegalArgumentException("Invalid book Id: "+ bookId));
+        String cateIdList = bookRepository.findBookCategoryMappingByBookId(bookId);
+        model.addAttribute("bookCateId",cateIdList);
         model.addAttribute("bookId",bookId);
+        model.addAttribute("category",categoryRepository.findAll());
         model.addAttribute("book",book);
         return "admin/books/EditBook";
     }
@@ -67,6 +71,7 @@ public class BookController {
         book.setId(bookId);
         book.setCreatedDate(Date.from(Instant.now()));
         bookRepository.save(book);
+
         return "redirect:/admin/book/getall";
     }
 

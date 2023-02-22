@@ -45,6 +45,10 @@
                 <input class="form-control" type="text"  id="Name" placeholder="Name" th:field="*{bookName}">
             </div>
             <div class="form-group">
+                <label for="image">Book Image URL</label>
+                <input class="form-control" type="text"  id="image" placeholder="Name" th:field="*{bookImage}">
+            </div>
+            <div class="form-group">
                 <label for="author">Author</label>
                 <input class="form-control" type="text"  id="author"
                        placeholder="Description" th:field="*{bookAuthor}">
@@ -61,7 +65,7 @@
             </div>
             <div class="form-group">
                                 <label for="cateId">Category</label>
-                <select data-placeholder="Choose a category..." multiple class="chosen-select" id="cateId" >
+                <select data-placeholder="Choose a category..." multiple class="chosen-select" id="cateId" th:field="*{cateId}">
                     <option th:each="cate : ${category}" th:value="${cate.Id}" th:text="${cate.Name}"></option>
                 </select>
             </div>
@@ -79,6 +83,7 @@
             })
 
         });
+
    </script>
 </th:block>
 
